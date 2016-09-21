@@ -1,0 +1,14 @@
+.code-padding {
+  color: mediumpurple;
+  margin-right : 20px;
+  margin-left: 20px;
+}
+
+body {
+    background-color: lightgoldenrodyellow;
+}
+
+h1 {
+    color: maroon;
+    margin-left: 40px;
+} 
