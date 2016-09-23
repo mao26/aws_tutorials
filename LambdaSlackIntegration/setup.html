@@ -25,12 +25,96 @@
 </head>
 
 <body>
-  <div class="container-fluid">
+  <div class="container-fluid body-container">
     <div class="page-header">
       <h1 class="text-center">AWS Tutorials <small>for BAH new hires</small></h1>
-      <h2 class="text-center">Setting up a slash command via AWS-Lambda</h2> </div>
-    <div class="row"> <pre class="code-padding">&lt;p&gt;Sample text here...&lt;/p&gt;</pre> </div>
+      <h2 class="text-center">Setting up a slash command via AWS-Lambda</h2> 
+    </div>
+    <div class="row code-padding">
+      <h2>How to update a WAF IP list with the Java SDK</h2>
+      <p>
+        If you need to setup your Eclipse IDE so that it can interact with the AWS SDK follow this <a href="#">tutorial</a> Understand <a href="#">WAF here.</a> Understand <a href="#">Lambda here.</a>
+      </p>
+      <p>
+        There are two things we must setup first so that we can use the java AWS SDK. First, we must authenticate ourselfs using <code>AWSCredentials()</code>. For self testing I used a <code>BaciAWSCredentials(AWS-access-key, AWS-secret-access-key)</code> object. Once you initialize this object, you must pass your credentials object to an <code>AWSWAFClient(credentials)</code> object in order to create an authenticaed <code>AWSWAF()</code> object.
+      </p>
+      <pre class="code-padding code-color">
+        AWSCredentials credentials = null;
+        credentials = new BasicAWSCredentials("keyname", "secretkey");
+        AWS waf = new AWSWAFClient(credentials);
+        </pre>
+      <h2>How to update a whitelist within WAF</h2>
+      <p>
+        There is one important API call with the waf object that we must make <code>updateIPSet(params)</code>; however, before we get to that point we have to set up a few important things to pass to our object.
+      </p>
+      <p>
+        AWS updateIPSetResult() method states that to create and configure an IPSet, perform the following steps:
+      </p>
+      <ol>
+        <li>Submit a CreateIPSet request. In our case, we have an already created IP Set and will just make a call to that specific IP set</li>
+        <li>Use GetChangeToken to get the change token that you provide in the ChangeToken parameter of an UpdateIPSet request.</li>
+        <li>Submit an UpdateIPSet request to specify the IP addresses that you want AWS WAF to watch for.</li>
+      </ol>
+      <p>
+        First, is our ChangeToken. We must make a call to the <code>getChangeToken(new GetChangeTokenRequest())</code> method. The ChangeToken is important. When you want to create, update, or delete AWS WAF objects, get a change token and include the change token in the create, update, or delete request. Change tokens ensure that your application doesn't submit conflicting requests to AWS WAF.
+      </p>
+      <pre class="code-padding code-color">
+        GetChangeTokenResult changeToken = null;
+        try {
+            System.out.println("change token is converted to PENDING status");
+            changeToken = waf.getChangeToken(new GetChangeTokenRequest());
+            System.out.println(changeToken.toString());
+        } catch (WAFInternalErrorException exception){
+            System.out.println("error when initializing ChangeToken param");
+            System.out.println(exception.getErrorMessage());
+        }
+      </pre>
+      <p>Now let's grab our IPSetId, since we are going to be updating an already existing whitelist.</p>
+      <pre class="code-padding code-color">
+        String IPSetId = "our-ip-set-id-number";
+        GetIPSetRequest request = new GetIPSetRequest();
+        request.setIPSetId(IPSetId);
+        System.out.println("before updating ip set");
+        System.out.println(waf.getIPSet(request));
+      </pre>
+      <p>Must pass a list of parameters to our updateIPSet() call, which includes:</p>
+      <ol>
+        <li>a changeToken with empty parameters </li>
+        <li>the id of the ip set that we want to update</li>
+        <li>a collection of IPSetUpdates, which includes:</li>
+        <ul>
+          <li>set action -- INSERT IN THIS CASE</li>
+          <li>set type -- IPV4</li>
+          <li>value -- ip address we want to update (arbitrary in this case)</li>
+        </ul>
+      </ol>
+      <pre class="code-padding code-color">
+        try {
+            UpdateIPSetRequest updateParams = new UpdateIPSetRequest();
+            updateParams.setChangeToken(changeToken.toString());
+            updateParams.setIPSetId(IPSetId);
+            Collection&lt;IPSetUpdate&gt; ipToAdd = new ArrayList&lt;IPSetUpdate&gt;();
+            IPSetUpdate howToUpdateIPList =  new IPSetUpdate();
+            howToUpdateIPList.setAction(ChangeAction.INSERT);
+            IPSetDescriptor ipsetdescriptor = new IPSetDescriptor();
+            ipsetdescriptor.setType(IPSetDescriptorType.IPV4);
+            ipsetdescriptor.setValue("192.0.2.44/32");
+            howToUpdateIPList.setIPSetDescriptor(ipsetdescriptor);
+            ipToAdd.add(howToUpdateIPList);
+            updateParams.setUpdates(ipToAdd);
+            System.out.println("Result: ");
+            UpdateIPSetResult result = waf.updateIPSet(updateParams);
+            System.out.println(result);
+        } catch (WAFStaleDataException | WAFInternalErrorException e) {
+            //| WAFInvalidAccountException){// | WAFInvalidOperationException | WAFInvalidParameterException  
+            //| WAFNonexistentContainerException | WAFNonexistentItemException | WAFReferencedItemException  
+            //| WAFLimitsExceededException e){
+            
+        }
+      </pre>
+    </div>
   </div>
+
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <!-- Include all compiled plugins (below), or include individual files as needed -->
