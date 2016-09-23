@@ -25,93 +25,68 @@
 </head>
 
 <body>
+  <nav class="navbar navbar-default">
   <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Brand</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+        <li><a href="#">Link</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">One more separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+      <form class="navbar-form navbar-left">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">Link</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+  <div class="container-fluid body-container">
     <div class="page-header">
-      <h1 class="text-center">DevOps Quick Dive<small> for BAH</small></h1>
-      <h2 class="text-center">What is Apache Camel?</h2> </div>
+      <h1 class="text-center">DevOps Quick Dive<small class="small-white"> for BAH</small></h1>
+      <h2 class="text-center">Pros&amp;Cons of Netflix Styled Microservice Testing</h2> </div>
     <div class="row"> <pre class="code-padding">&lt;p&gt;Sample text here...&lt;/p&gt;</pre> </div>
     <div class="row code-padding">
       <h2>Why use Camel?</h2>
       <p>
-        Microservices and SOA styled software are becoming integral design patterns within corporations and large software projects. It's easy to see why. The alternative - large monolithic projects - involves tightly coupled code that causes heartache for engineers. Due to the nature of how the code is structure, one change to a small part of the program can cause crashes in other parts of the program due to code dependencies. The structure of monolithic projects itself pushes programmers away from how DevOps should operate. By now, this should be engrained in any DevOps engineer's mind. So then what help does Apache Camel offer for DevOps styled programming?
-      </p>
-      <p>
-        For those of us that still struggle with understanding how a Microservices styled programs operate, here's how I've come to understand them. Essentially, a large monolithic programs has no solid boundaries between different functionality pieces. Let's say that Kayak.com has a <code>bookingFromDCToChicagoInAMarriottHotel(<var>var Date</var>)</code> method. If a person actually fits the bill for this specific function, then this is a great method. But what if a person doens't want to stay in a Marriott hotel. Then we have to create a function for the DC to Chicago flight with a different hotel. This is monotholitic approach to software programs.
-      </p>
-      <p>
-        Microservices would come in and break this function down into simpler individual pieces. Each of these pieces would come together to produce more complex functionality. For example, we could break bookingFromDCToChicagoInAMarriottHotel(var Date) into smaller microservices - <code>bookingFrom()</code>, <code>bookingTo()</code>, <code>hotelling()</code>, <code>date()</code> - and then piece these smaller programs together into a function that produces the multitude of desired functionality. Essentially, when viewing software through Microservice-colored glasses, the program becomes a jigsaw puzzle and each small piece of functionality [each microservice] becomes a jigsaw puzzle piece.
-      </p>
-      <p>
-        This is where Apache Camel comes in. The false assumption being made in the puzzle analogy is that each one of these pieces plugs in simple and seamlessly with the other pieces. This is rarely true, as system integration is a complicated process. Each one of our jigsaw pieces is a standalone component that performs it's function to perfection - thank you unit testing. But connecting these pieces can be a complicated process. SOA architecture calls for the use of ESBs - Enterprise System Buses - for connectivity between components. Camel is an integration framework and offers a different approach for component integration. Let's dive a little deeper into how Camel focuses on offering simple integration.
-      </p>
-      <p>
-        Other info - open source.
-      </p>
-    </div>
-    <div class="row code-padding">
-      <h2>What is Camel?</h2>
-      <p>
-        Camel is a routing engine tool that works through the creation of different routing rules. These rules determine from what microservices to accept messages, how to process those messages, and how to relay those messages to other microservices.
-      </p>
-      <p>
-        Camel is not an ESB; alothough , few describe it s a lightway ESB due to its routing, transformation, monitoring, and orchestrating functioniality. It does not have a container or reliable message bus, but can be deployed in one.
-      </p>
-      <p>
-        Camel does not enforce a specific canonical format on the data being passed between your microservices, allowing for integration of any kind of system. This extends to protocols, as Camel allows you to interact with various systems using the same API regardless of the protocol the system implements. Camel comes with support for over 80 protocols and data types. This elimates the need for unnecessary convertions and makes Camel fast and lean.
-      </p>
-    </div>
-    <div class="row code-padding">
-      <h2>Why use Camel?</h2>
-      <h4>Routing</h4>
-      <p>
-        This is the core feature of Camel. It has the ability to move messages between microservices based on predetermined logic via rules. Enterprise integration patterns and domain-specific language are used to configure routes.
-      </p>
-      <h4><abbr title="Enterprise Integration Patterns" class="initialism">EIPS</abbr></h3>
-      <p>
-        Camel is heavily based on these proven integration solution patterns.
-      </p>
-      <h4><abbr title="Domain-Specific Language" class="initialism">DSL</abbr></h3>
-      <p>
-        The purpose of Camel's domain-specific language is to allow developers to focus on the integration problem rather than on the language, as cammel offers multiple DSLs in regular programming languages (Java, Spring, Scala, Groovy, XML for routing rules). This allows Camel to leverage the strengths of languages for different tasks while minimizing constraints during the process.
-      </p>
-      <h4>Components</h4>
-      <p>
-        There is an extensive Camel library that includes over 80 components that enable Camel to connect over transports, use APIs, and understand data formats.
-      </p>
-      <h4>Payload-Agnostic Router</h4>
-      <p>
-        Camel can route any kind of payload, not just XML payloads.
-      </p>
-      <h4>Modular Architecture</h4>
-      <p>
-        Camel allows any component to be loaded including Camel native components, third party components, or self-created custom components.
-      </p>
-      <h4>POJO Model</h4>
-      <p>
-        Beans - plain old java objects - are first class citizens allowing you the flexibility to use objects at any point and time during your integration projects. This allows for extensibility beyond Camel's build-in functionality.
-      </p>
-      <h4>Convention over Configuration</h4>
-      <p>
-        There is an explicit move towards minimalistic configuration requirements. To configure endpoints directly in routes, Camel provides easy to use URI configurations.
-      </p>
-      <p>
-        For example, <code>from("file:data/inbox?recursive=true&include=*.txt")...</code> uses URI configuration to allow a file consumer to scan recursively through a subfolder, and include only .txt files.
-      </p>
-      <h4>Automatic Type Converters</h4>
-      <p>
-        Camel has a built in type-converter mechanism with over 150 converters plus the ability to create custom type converters. This means that you do not need to configure type-converter rules to go from byte arrays to strings. This functionality is leveraged by components by allowing components to accept any type of data and then being able to convert the data to whatever they need. 
-      </p>
-      <h4>Lightweight</h4>
-      <p>
-        At 1.6MB size for the total library and minimal dependency only on Apache Commons Logging and Fuse-Source Commons Management, Camel is a lightweight program. This feature allows easy deployment and embedding into standalone applications, web applications, Spring application, Java EE and many other tools. This lightweight functionality is what allowed Camel to not be server dependent or a heavyweight ESB-dependent platform. 
-      </p>
-      <h4>Test Kid</h4>
-      <p>
-        There is a built in test kid with over 6000 unit tests. This includes test components that can be used to mock real endpoints, setup expectations for testing if an application satisfied the requirements, and many more tests. 
-      </p>
-       <h4>Open Source</h4>
-      <p>
-        Not only is this an open source project, but it has an active community and active community support. 
+        Microservices and SOA styled software are becoming integral design patterns within corporations and large software projects. It's easy to see why. The alternative - large monolithic code bases - involve tightly coupled code that causes heartache for engineers. Due to the nature of how the code is structure, one change to a small part of the program can cause crashes in other parts of the program due to code dependencies. The structure of monolithic projects itself pushes programmers away from how DevOps should operate. By now, this should be engrained in any DevOps engineer's mind. So then what help does Apache Camel offer for DevOps styled programming?
       </p>
     </div>
     <div class="page-footer">

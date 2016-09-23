@@ -1,0 +1,38 @@
+.code-padding {
+  color: white;
+  margin-right : 20px;
+  margin-left: 20px;
+}
+
+body {
+    background-color: whitesmoke;
+}
+
+h1 {
+    color: maroon;
+    margin-left: 40px;
+} 
+
+h4 {
+  margin-left: -10px;
+  color: maroon;
+}
+
+.small-white {
+  color: white;
+}
+
+.body-container {
+  top: 10px;
+  margin: 50px 50px 50px 50px;
+  background-color: dimgrey;
+  border-radius: 5px;
+  box-shadow: 10px 10px 10px #888888;
+}
+
+/*.body-container {
+  position: fixed;
+  top: 30px;
+  bottom: 0px;
+  overflow: scroll;
+}*/
